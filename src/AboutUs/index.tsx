@@ -31,12 +31,22 @@ export default function AboutUs() {
 
   return (
     <>
-      <Typography variant="h3" component="h1">
-        About Us
+      <Typography
+        variant="h3"
+        component="h1"
+        sx={{ paddingLeft: '25px', paddingTop: '25px' }}
+      >
+        About us
       </Typography>
       <Grid container>
         {list.map((item) => (
-          <Grid item sx={{ padding: theme.spacing(5) }} xs={12} md={6}>
+          <Grid
+            item
+            key={item.title}
+            sx={{ padding: theme.spacing(5) }}
+            xs={12}
+            md={6}
+          >
             <Box>
               <Typography variant="h4" sx={{ borderBottom: '3px solid #333' }}>
                 {item.title}
@@ -45,7 +55,11 @@ export default function AboutUs() {
             </Box>
           </Grid>
         ))}
-        <Button variant="contained" onClick={() => navigate('/contact-us')}>
+        <Button
+          variant="contained"
+          sx={{ margin: '25px' }}
+          onClick={() => navigate('/contact-us')}
+        >
           Build now!
         </Button>
       </Grid>

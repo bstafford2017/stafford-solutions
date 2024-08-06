@@ -86,7 +86,7 @@ export default function ContactUs() {
   };
 
   return (
-    <>
+    <Box sx={{ margin: '25px', padding: '15px' }}>
       <Typography variant="h3" component="h1">
         Contact us
       </Typography>
@@ -144,10 +144,12 @@ export default function ContactUs() {
               onChange={(e) => setEndDate(e.target.value)}
               onBlur={() => validateEndDate()}
             />
-            <Button onClick={onSubmit}>Send</Button>
+            <Button variant="contained" onClick={onSubmit}>
+              Send
+            </Button>
           </FormControl>
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 }
