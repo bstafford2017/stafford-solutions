@@ -4,8 +4,6 @@ import {
   Button,
   FormControl,
   Grid,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from '@mui/material';
@@ -14,67 +12,50 @@ export default function ContactUs() {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [budget, setBudget] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const [firstNameError, setFirstNameError] = useState<string>('');
   const [lastNameError, setLastNameError] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
-  const [phoneNumberError, setPhoneNumberError] = useState<string>('');
-  const [budgetError, setBudgetError] = useState<string>('');
-  const [endDateError, setEndDateError] = useState<string>('');
+  const [messageError, setMessageError] = useState<string>('');
 
   const validateFirstName = (): void => {
-    if (!!firstName.match(/[a-zA-Z.]{3,50}/g)) {
+    if (!firstName.match(/[a-zA-Z. -]{3,50}/g)) {
       setFirstNameError(
         'Please enter a first name between 3 and 50 characters'
       );
+    } else {
+      setFirstNameError('');
     }
   };
 
   const validateLastName = (): void => {
-    if (!!lastName.match(/[a-zA-Z.]{3,50}/g)) {
+    if (!lastName.match(/[a-zA-Z. -]{3,50}/g)) {
       setLastNameError('Please enter a last name between 3 and 50 characters');
-    }
-  };
-
-  const validatePhoneNumber = (): void => {
-    if (!!phoneNumber.match(/([0-9]{10}|[0-9]{3}-[0-9]{3}-[0-9]{4})/g)) {
-      setPhoneNumberError('Please enter a valid phone number');
+    } else {
+      setLastNameError('');
     }
   };
 
   const validateEmailAddress = (): void => {
-    if (
-      !!email.match(
-        /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
-      )
-    ) {
+    if (!email.match(/\w+@\w+\.\w/g)) {
       setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
     }
   };
 
-  const validateBudget = (): void => {
-    if (!!budget) {
-      setBudgetError('Please enter a valid budget');
-    }
-  };
-
-  const validateEndDate = () => {
-    if (!!endDate.match(/[0-9]{2}\/[0-9]{2}\/([0-9{2}]|[0-9]{4})/g)) {
-      setEndDateError('Please enter a valid estimated end date');
+  const validateMessage = (): void => {
+    if (!message.match(/[a-zA-Z0-9.!@#$%&*()-_ ]{3,50}/g)) {
+      setMessageError(
+        'Please enter a valid message between 3 and 50 characters'
+      );
+    } else {
+      setMessageError('');
     }
   };
 
   const onSubmit = () => {
-    if (
-      firstNameError ||
-      lastNameError ||
-      emailError ||
-      phoneNumberError ||
-      budgetError ||
-      endDateError
-    ) {
+    if (firstNameError || lastNameError || emailError) {
       return;
     }
 
@@ -100,6 +81,9 @@ export default function ContactUs() {
               label="First name"
               variant="standard"
               error={!!firstNameError}
+              value={firstName}
+              helperText={firstNameError}
+              sx={{ padding: '10px 0px' }}
               onChange={(e) => setFirstName(e.target.value)}
               onBlur={() => validateFirstName()}
             />
@@ -107,6 +91,9 @@ export default function ContactUs() {
               label="Last name"
               variant="standard"
               error={!!lastNameError}
+              value={lastName}
+              helperText={lastNameError}
+              sx={{ padding: '10px 0px' }}
               onChange={(e) => setLastName(e.target.value)}
               onBlur={() => validateLastName()}
             />
@@ -114,37 +101,32 @@ export default function ContactUs() {
               label="Email address"
               variant="standard"
               error={!!emailError}
+              value={email}
+              helperText={emailError}
+              sx={{ padding: '10px 0px' }}
               onChange={(e) => setEmail(e.target.value)}
-              onBlur={() => validateEmailAddress}
+              onBlur={() => validateEmailAddress()}
             />
             <TextField
-              label="Phone number"
+              label="Message"
               variant="standard"
-              helperText="Ex. 123-456-7890 or 1234567890"
-              error={!!phoneNumberError}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              onBlur={() => validatePhoneNumber()}
+              error={!!messageError}
+              value={message}
+              helperText={messageError}
+              sx={{ padding: '10px 0px' }}
+              onChange={(e) => setMessage(e.target.value)}
+              onBlur={() => validateMessage()}
             />
-            <Select
-              value={budget}
-              label="Budget"
-              error={!!budgetError}
-              onChange={(e) => setBudget(e.target.value)}
-              onBlur={() => validateBudget()}
+            <Button
+              variant="contained"
+              onClick={onSubmit}
+              disabled={
+                firstNameError !== '' ||
+                lastNameError !== '' ||
+                emailError !== '' ||
+                messageError !== ''
+              }
             >
-              <MenuItem value={500}>$500 - $1500</MenuItem>
-              <MenuItem value={1500}>$1500 - $2500</MenuItem>
-              <MenuItem value={2500}>$2500+</MenuItem>
-            </Select>
-            <TextField
-              label="Estimated End Date"
-              variant="standard"
-              helperText="Ex. 01/01/24 or 01/01/2024"
-              error={!!endDateError}
-              onChange={(e) => setEndDate(e.target.value)}
-              onBlur={() => validateEndDate()}
-            />
-            <Button variant="contained" onClick={onSubmit}>
               Send
             </Button>
           </FormControl>
