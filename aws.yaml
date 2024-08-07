@@ -92,7 +92,7 @@ Resources:
   SuperAppRouteSetGroup:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZoneId: Z0781836ZE9KD7KZM7LM
+      HostedZoneId: Z019972822N49WGVV3O5H
       RecordSets:
         - Name: 'www.staffordsolutionsllc.com'
           Type: A
@@ -113,7 +113,7 @@ Resources:
       DomainName: '*.staffordsolutionsllc.com'
       DomainValidationOptions:
         - DomainName: '*.staffordsolutionsllc.com'
-          HostedZoneId: Z0781836ZE9KD7KZM7LM # route 53 zone
+          HostedZoneId: Z019972822N49WGVV3O5H # route 53 zone
       ValidationMethod: DNS
 
 Outputs:
