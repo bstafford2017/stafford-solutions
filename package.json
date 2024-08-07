@@ -14,6 +14,7 @@
   "scripts": {
     "start": "webpack serve",
     "build": "webpack",
+    "test": "jest --passWithNoTests",
     "provision": "aws cloudformation deploy --region us-east-1 --template-file ./aws.yaml --stack-name stafford-solutions-stack --parameter-overrides BucketName=stafford-solutions-bucket AccountId=749936333804",
     "upload": "aws s3 sync dist/ s3://stafford-solutions-bucket --delete",
     "deploy": "npm run build && npm run provision && npm run upload"
