@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { motion } from 'framer-motion';
 
 export default function ContactUs() {
   const [firstName, setFirstName] = useState<string>('');
@@ -67,71 +68,86 @@ export default function ContactUs() {
   };
 
   return (
-    <Box sx={{ margin: '25px', padding: '15px' }}>
-      <Typography variant="h3" component="h1">
-        Contact us
-      </Typography>
-      <Typography variant="subtitle1">
-        Please use this form to contact us!
-      </Typography>
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
-            <TextField
-              label="First name"
-              variant="standard"
-              error={!!firstNameError}
-              value={firstName}
-              helperText={firstNameError}
-              sx={{ padding: '10px 0px' }}
-              onChange={(e) => setFirstName(e.target.value)}
-              onBlur={() => validateFirstName()}
-            />
-            <TextField
-              label="Last name"
-              variant="standard"
-              error={!!lastNameError}
-              value={lastName}
-              helperText={lastNameError}
-              sx={{ padding: '10px 0px' }}
-              onChange={(e) => setLastName(e.target.value)}
-              onBlur={() => validateLastName()}
-            />
-            <TextField
-              label="Email address"
-              variant="standard"
-              error={!!emailError}
-              value={email}
-              helperText={emailError}
-              sx={{ padding: '10px 0px' }}
-              onChange={(e) => setEmail(e.target.value)}
-              onBlur={() => validateEmailAddress()}
-            />
-            <TextField
-              label="Message"
-              variant="standard"
-              error={!!messageError}
-              value={message}
-              helperText={messageError}
-              sx={{ padding: '10px 0px' }}
-              onChange={(e) => setMessage(e.target.value)}
-              onBlur={() => validateMessage()}
-            />
-            <Button
-              variant="contained"
-              onClick={onSubmit}
-              disabled={
-                firstNameError !== '' ||
-                lastNameError !== '' ||
-                emailError !== '' ||
-                messageError !== ''
-              }
-            >
-              Send
-            </Button>
-          </FormControl>
+    <motion.div
+      className="card"
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: -15,
+        transition: {
+          duration: 0.5,
+        },
+      }}
+      viewport={{ once: true }}
+    >
+      <Box sx={{ padding: '25px' }}>
+        <Typography variant="h3" component="h1">
+          Contact us
+        </Typography>
+        <Typography variant="subtitle1">
+          Please use this form to contact us!
+        </Typography>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <TextField
+                label="First name"
+                variant="standard"
+                error={!!firstNameError}
+                value={firstName}
+                helperText={firstNameError}
+                sx={{ padding: '10px 0px' }}
+                onChange={(e) => setFirstName(e.target.value)}
+                onBlur={() => validateFirstName()}
+              />
+              <TextField
+                label="Last name"
+                variant="standard"
+                error={!!lastNameError}
+                value={lastName}
+                helperText={lastNameError}
+                sx={{ padding: '10px 0px' }}
+                onChange={(e) => setLastName(e.target.value)}
+                onBlur={() => validateLastName()}
+              />
+              <TextField
+                label="Email address"
+                variant="standard"
+                error={!!emailError}
+                value={email}
+                helperText={emailError}
+                sx={{ padding: '10px 0px' }}
+                onChange={(e) => setEmail(e.target.value)}
+                onBlur={() => validateEmailAddress()}
+              />
+              <TextField
+                label="Message"
+                variant="standard"
+                error={!!messageError}
+                value={message}
+                helperText={messageError}
+                sx={{ padding: '10px 0px' }}
+                onChange={(e) => setMessage(e.target.value)}
+                onBlur={() => validateMessage()}
+              />
+              <Button
+                variant="contained"
+                onClick={onSubmit}
+                disabled={
+                  firstNameError !== '' ||
+                  lastNameError !== '' ||
+                  emailError !== '' ||
+                  messageError !== ''
+                }
+              >
+                Send
+              </Button>
+            </FormControl>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </motion.div>
   );
 }

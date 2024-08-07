@@ -1,6 +1,7 @@
 import { useTheme } from '@mui/material/styles';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const list: { title: string; description: string }[] = [
   {
@@ -30,39 +31,53 @@ export default function AboutUs() {
   const theme = useTheme();
 
   return (
-    <>
-      <Typography
-        variant="h3"
-        component="h1"
-        sx={{ paddingLeft: '25px', paddingTop: '25px' }}
-      >
-        About us
-      </Typography>
-      <Grid container>
-        {list.map((item) => (
-          <Grid
-            item
-            key={item.title}
-            sx={{ padding: theme.spacing(5) }}
-            xs={12}
-            md={6}
+    <motion.div
+      className="card"
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: -15,
+        transition: {
+          duration: 0.5,
+        },
+      }}
+      viewport={{ once: true }}
+    >
+      <Box sx={{ paddingTop: '25px' }}>
+        <Typography variant="h3" component="h1" sx={{ paddingLeft: '25px' }}>
+          About us
+        </Typography>
+        <Grid container>
+          {list.map((item) => (
+            <Grid
+              item
+              key={item.title}
+              sx={{ padding: theme.spacing(5) }}
+              xs={12}
+              md={6}
+            >
+              <Box>
+                <Typography
+                  variant="h4"
+                  sx={{ borderBottom: '3px solid #333' }}
+                >
+                  {item.title}
+                </Typography>
+                <Typography variant="subtitle1">{item.description}</Typography>
+              </Box>
+            </Grid>
+          ))}
+          <Button
+            variant="contained"
+            sx={{ margin: '25px' }}
+            onClick={() => navigate('/contact-us')}
           >
-            <Box>
-              <Typography variant="h4" sx={{ borderBottom: '3px solid #333' }}>
-                {item.title}
-              </Typography>
-              <Typography variant="subtitle1">{item.description}</Typography>
-            </Box>
-          </Grid>
-        ))}
-        <Button
-          variant="contained"
-          sx={{ margin: '25px' }}
-          onClick={() => navigate('/contact-us')}
-        >
-          Build now!
-        </Button>
-      </Grid>
-    </>
+            Build now!
+          </Button>
+        </Grid>
+      </Box>
+    </motion.div>
   );
 }
